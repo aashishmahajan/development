@@ -13,6 +13,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.time.LocalDate;
 import java.util.Map;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 @RunWith(MockitoJUnitRunner.class)
 public class DemoApplicationTests {
@@ -41,6 +42,15 @@ public class DemoApplicationTests {
 		FlightQueryDto flightQueryDto = new FlightQueryDto(origin, destination, departure_date, return_date, price);
 		assertTrue(flightQueryDto.getSearchRegularFare().equals("/flights/inspiration-search?apikey=fl6grJkCesn0wqBnbWOUKRSeuh1jrMzk&origin=NYC&destination=JFK&departure_date=2018-11-16&return_date=2018-12-18&price=100.0"));
 		assertTrue(flightQueryDto.getSearchTypeLowFare().equals("/flights/low-fare-search?apikey=fl6grJkCesn0wqBnbWOUKRSeuh1jrMzk&origin=NYC&destination=JFK&departure_date=2018-11-16&return_date=2018-12-18&price=100.0"));
+	}
+
+	@Test
+	public void testHealthService(){
+		TripOptionServiceImpl tripOptionService = new TripOptionServiceImpl();
+		String healthResponse = tripOptionService.getHealth();
+		Assert.assertNotNull(healthResponse.toString());
+		String response = "Service is active and working";
+		assertEquals(healthResponse, healthResponse);
 	}
 
 
