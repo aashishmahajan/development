@@ -19,9 +19,9 @@ import java.util.stream.Collectors;
 @EnableAutoConfiguration
 public class TripBooking {
     private static AmandeusSandboxImpl amandeusSandbox = new AmandeusSandboxImpl();
-    public Map<String, FlightInformationDto> getMyFlightsNow(TripOptionDto  tripOptionDto) throws Exception {
+    public Map<String, Object> getMyFlightsNow(TripOptionDto  tripOptionDto) throws Exception {
         String baseUrl = "https://api.sandbox.amadeus.com/v1.2";
-        Map<String, FlightInformationDto> flightInformationDtoMap =
+        Map<String, Object> flightInformationDtoMap =
                 amandeusSandbox.processFlightFindRequest(
                         new FlightQueryDto(tripOptionDto.getOrginationCity(),
                             tripOptionDto.getDestinationCity(),

@@ -35,7 +35,7 @@ public class TripOptionServiceImpl implements TripOptionService{
     }
 
     @Override
-    public Map<String, FlightInformationDto> getFlight(@RequestBody  TripOptionDto tripOptionDto) throws Exception {
+    public Map<String, Object> getFlight(@RequestBody  TripOptionDto tripOptionDto) throws Exception {
         if(tripOptionDto == null) return null;
         return tripBooking.getMyFlightsNow(tripOptionDto);
 

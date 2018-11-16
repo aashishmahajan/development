@@ -2,6 +2,7 @@ package com.example.demo.restController;
 
 import com.example.demo.Model.FlightInformationDto;
 import com.example.demo.Model.FlightQueryDto;
+import com.example.demo.Model.LowFareFlightDto;
 import com.example.demo.executor.FlightDataProcessing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.swagger.annotations.Api;
@@ -35,39 +36,28 @@ public class AmandeusSandboxImpl implements AmandeusSandboxService{
     private FlightDataProcessing flightDataProcessing = new FlightDataProcessing();
 
     @Override
-    @RequestMapping(method = RequestMethod.POST, path="/")
+    @RequestMapping(method = RequestMethod.POST, path="/getRegular")
     public FlightInformationDto getFlightData(@RequestBody  FlightQueryDto flightQueryDto) throws Exception{
 
         if(flightQueryDto != null) {
-            final String uri = BASE_URL+ flightQueryDto.getSearchTypeLowFare();
-            URL url = new URL(uri);
-            HttpURLConnection con = (HttpURLConnection) url.openConnection();
-            con.setRequestMethod("GET");
-            int status = con.getResponseCode();
-            FlightInformationDto flightInformationDto = null;
-
-            switch (status) {
-                case 200:
-                    // no action
-                case 201:
-                    // process my data here
-                    BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-                    StringBuilder sb = new StringBuilder();
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                        sb.append(line+"\n");
-                    }
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    flightInformationDto = objectMapper.readValue(sb.toString(), FlightInformationDto.class);
-                    return flightInformationDto;
-            }
-
+            final String uri = BASE_URL + flightQueryDto.getSearchRegularFare();
+            return  flightDataProcessing.getDataFromAmadeusForRegular(uri);
         }
         return null;
     }
 
-    public Map<String, FlightInformationDto> processFlightFindRequest(FlightQueryDto flightQueryDto) throws Exception{
-        Map<String, FlightInformationDto>  flightMap = new HashMap<>();
+    @Override
+    @RequestMapping(method = RequestMethod.POST, path="/getLowFare")
+    public LowFareFlightDto getFlightDataLowFare(@RequestBody FlightQueryDto flightQueryDto) throws Exception {
+        if(flightQueryDto != null) {
+            final String uri = BASE_URL + flightQueryDto.getSearchTypeLowFare();
+            return  flightDataProcessing.getDataFromAmadeusForLowFare(uri);
+        }
+        return null;
+    }
+
+    public Map<String, Object> processFlightFindRequest(FlightQueryDto flightQueryDto) throws Exception{
+        Map<String, Object>  flightMap = new HashMap<>();
         if(flightQueryDto != null) {
                 flightMap = flightDataProcessing.getDedicateFlights(BASE_URL, flightQueryDto, flightMap);
                 flightMap = flightDataProcessing.getLowFareFlights(BASE_URL, flightQueryDto, flightMap);

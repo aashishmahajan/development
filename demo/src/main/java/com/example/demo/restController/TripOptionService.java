@@ -16,5 +16,5 @@ import java.util.Map;
 @Service
 public interface TripOptionService {
     @RequestMapping( path = "/getflights", method = RequestMethod.POST)
-    Map<String, FlightInformationDto> getFlight(TripOptionDto tripOptionDto) throws Exception;
+    Map<String, Object> getFlight(TripOptionDto tripOptionDto) throws Exception;
 }

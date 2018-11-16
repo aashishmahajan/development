@@ -2,6 +2,7 @@ package com.example.demo.executor;
 
 import com.example.demo.Model.FlightInformationDto;
 import com.example.demo.Model.FlightQueryDto;
+import com.example.demo.Model.LowFareFlightDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Configuration;
@@ -17,27 +18,43 @@ import java.util.Map;
 @Service
 public class FlightDataProcessing {
 
-    public Map<String, FlightInformationDto> getDedicateFlights(String baseurl, FlightQueryDto flightQueryDto, Map<String, FlightInformationDto> rslt) throws Exception{
+    public Map<String, Object> getDedicateFlights(String baseurl, FlightQueryDto flightQueryDto, Map<String, Object> rslt) throws Exception{
         String uri = baseurl+ flightQueryDto.getSearchRegularFare();
-        FlightInformationDto flightInformationDto = getDataFromAmadeus(uri);
-        rslt.put("regular",flightInformationDto );
+        FlightInformationDto flightInformationDto = getDataFromAmadeusForRegular(uri);
+        Object obj = convertInstanceOfObjectOfFlightInformation(flightInformationDto);
+        rslt.put("regular",obj );
         return rslt;
     }
 
-    public Map<String, FlightInformationDto>  getLowFareFlights (String baseurl, FlightQueryDto flightQueryDto, Map<String, FlightInformationDto> rslt) throws Exception{
+    public Map<String, Object>  getLowFareFlights (String baseurl, FlightQueryDto flightQueryDto, Map<String, Object> rslt) throws Exception{
         String uri = baseurl+ flightQueryDto.getSearchTypeLowFare();
-        FlightInformationDto flightInformationDto = getDataFromAmadeus(uri);
-        rslt.put("lowfare",flightInformationDto );
+        LowFareFlightDto lowFareFlightDto = getDataFromAmadeusForLowFare(uri);
+        Object obj = convertInstanceOfObjectLowFare(lowFareFlightDto);
+        rslt.put("lowfare",obj );
         return rslt;
     }
 
-    private FlightInformationDto getDataFromAmadeus(String uri)throws Exception{
+    public FlightInformationDto getDataFromAmadeusForRegular(String uri)throws Exception{
+        FlightInformationDto flightInformationDto = null;
+        String s = getDatafromAmadeus(uri);
+        ObjectMapper objectMapper = new ObjectMapper();
+        flightInformationDto = objectMapper.readValue(s, FlightInformationDto.class);
+        return flightInformationDto;
+    }
+
+    public LowFareFlightDto getDataFromAmadeusForLowFare(String uri)throws Exception{
+        LowFareFlightDto lowFareFlightDto= null;
+        String sb = getDatafromAmadeus(uri);
+        ObjectMapper objectMapper = new ObjectMapper();
+        lowFareFlightDto = objectMapper.readValue(sb.toString(), LowFareFlightDto.class);
+        return lowFareFlightDto;
+    }
+
+    private String getDatafromAmadeus(String uri) throws Exception{
         URL url = new URL(uri);
         HttpURLConnection con = (HttpURLConnection) url.openConnection();
         con.setRequestMethod("GET");
         int status = con.getResponseCode();
-        FlightInformationDto flightInformationDto = null;
-
         switch (status) {
             case 200:
             case 201:
@@ -47,11 +64,24 @@ public class FlightDataProcessing {
                 while ((line = br.readLine()) != null) {
                     sb.append(line + "\n");
                 }
-                String s = sb.toString();
-                ObjectMapper objectMapper = new ObjectMapper();
-                flightInformationDto = objectMapper.readValue(s, FlightInformationDto.class);
-                return flightInformationDto;
+                return sb.toString();
         }
-        return new FlightInformationDto();
+        return null;
     }
+
+    public static <T> T convertInstanceOfObjectOfFlightInformation(FlightInformationDto flightInformationDto) {
+        try {
+            return (T) flightInformationDto;
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
+    public static <T> T convertInstanceOfObjectLowFare(LowFareFlightDto lowFareFlightDto) {
+        try {
+            return (T) lowFareFlightDto;
+        } catch (ClassCastException e) {
+            return null;
+        }
+    }
+
 }

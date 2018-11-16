@@ -25,7 +25,7 @@ public class DemoApplicationTests {
 	public void testTripLoadIfNoValueInObject() throws Exception{
 		TripOptionDto tripOptionDto = null;
 		TripOptionServiceImpl tripOptionService = new TripOptionServiceImpl();
-		Map<String, FlightInformationDto> flightFoundResultsDto= tripOptionService.getFlight(tripOptionDto);
+		Map<String, Object> flightFoundResultsDto= tripOptionService.getFlight(tripOptionDto);
 
 		Assert.assertNull(flightFoundResultsDto);
 	}
