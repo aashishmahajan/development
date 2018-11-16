@@ -37,12 +37,12 @@ public class SwaggerConfig
         Contact contact = new Contact("AM", null, "mahajan_aashish@hotmail.com");
         ApiInfo apiInfo = new ApiInfo(
                 "altimetrixDemo",
-                "",
+                "By Aashish Mahajan",
                 "v0.1",
-                null,
+                "StayWary",
                 contact,
-                null,
-                null);
+                "None",
+                "None");
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo).select()
                 .apis(RequestHandlerSelectors.basePackage("com.example.demo"))

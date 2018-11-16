@@ -20,6 +20,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 /* @Author: Aashish Mahajan, DateCreated: 11/15/2018 */
 
@@ -48,7 +49,7 @@ public class AmandeusSandboxImpl implements AmandeusSandboxService{
 
     @Override
     @RequestMapping(method = RequestMethod.POST, path="/getLowFare")
-    public LowFareFlightDto getFlightDataLowFare(@RequestBody FlightQueryDto flightQueryDto) throws Exception {
+    public String getFlightDataLowFare(@RequestBody FlightQueryDto flightQueryDto) throws Exception {
         if(flightQueryDto != null) {
             final String uri = BASE_URL + flightQueryDto.getSearchTypeLowFare();
             return  flightDataProcessing.getDataFromAmadeusForLowFare(uri);
@@ -57,7 +58,7 @@ public class AmandeusSandboxImpl implements AmandeusSandboxService{
     }
 
     public Map<String, Object> processFlightFindRequest(FlightQueryDto flightQueryDto) throws Exception{
-        Map<String, Object>  flightMap = new HashMap<>();
+        Map<String, Object>  flightMap = new LinkedHashMap<>();
         if(flightQueryDto != null) {
                 flightMap = flightDataProcessing.getDedicateFlights(BASE_URL, flightQueryDto, flightMap);
                 flightMap = flightDataProcessing.getLowFareFlights(BASE_URL, flightQueryDto, flightMap);

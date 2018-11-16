@@ -7,7 +7,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OutBoundLowFareDto {
     private String duration;
-
+    private List<FlightOptionsDto> flights;
     public List<FlightOptionsDto> getFlights() {
         return flights;
     }
@@ -16,7 +16,7 @@ public class OutBoundLowFareDto {
         this.flights = flights;
     }
 
-    private List<FlightOptionsDto> flights;
+
 
     public String getDuration() {
         return duration;

@@ -11,5 +11,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public interface AmandeusSandboxService {
     FlightInformationDto getFlightData(FlightQueryDto flightQueryDto) throws Exception;
 
-    LowFareFlightDto getFlightDataLowFare(FlightQueryDto flightQueryDto) throws Exception;
+    String getFlightDataLowFare(FlightQueryDto flightQueryDto) throws Exception;
 }

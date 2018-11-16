@@ -28,8 +28,8 @@ public class FlightDataProcessing {
 
     public Map<String, Object>  getLowFareFlights (String baseurl, FlightQueryDto flightQueryDto, Map<String, Object> rslt) throws Exception{
         String uri = baseurl+ flightQueryDto.getSearchTypeLowFare();
-        LowFareFlightDto lowFareFlightDto = getDataFromAmadeusForLowFare(uri);
-        Object obj = convertInstanceOfObjectLowFare(lowFareFlightDto);
+
+        Object obj = convertInstanceOfObjectLowFare(getDataFromAmadeusForLowFare(uri));
         rslt.put("lowfare",obj );
         return rslt;
     }
@@ -42,12 +42,12 @@ public class FlightDataProcessing {
         return flightInformationDto;
     }
 
-    public LowFareFlightDto getDataFromAmadeusForLowFare(String uri)throws Exception{
+    public String getDataFromAmadeusForLowFare(String uri)throws Exception{
         LowFareFlightDto lowFareFlightDto= null;
-        String sb = getDatafromAmadeus(uri);
-        ObjectMapper objectMapper = new ObjectMapper();
+        return getDatafromAmadeus(uri);
+        /*ObjectMapper objectMapper = new ObjectMapper();
         lowFareFlightDto = objectMapper.readValue(sb.toString(), LowFareFlightDto.class);
-        return lowFareFlightDto;
+        return lowFareFlightDto;*/
     }
 
     private String getDatafromAmadeus(String uri) throws Exception{
@@ -76,7 +76,7 @@ public class FlightDataProcessing {
             return null;
         }
     }
-    public static <T> T convertInstanceOfObjectLowFare(LowFareFlightDto lowFareFlightDto) {
+    public static <T> T convertInstanceOfObjectLowFare(String lowFareFlightDto) {
         try {
             return (T) lowFareFlightDto;
         } catch (ClassCastException e) {
