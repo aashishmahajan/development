@@ -34,22 +34,6 @@ public class SwaggerConfig
         responseTypes.add(new ResponseMessageBuilder().code(403).message("Forbidden").build());
         responseTypes.add(new ResponseMessageBuilder().code(404).message("Not Found").build());
 
-        List<Parameter> params = new ArrayList<Parameter>();
-        Parameter param = new Parameter(
-                "Authorization",
-                "Authorization: BEARER",
-                null,
-                true,
-                false,
-                new ModelRef("string"),
-                null,
-                null,
-                "header",
-                null,
-                false,
-                null);
-        params.add(param);
-
         Contact contact = new Contact("AM", null, "mahajan_aashish@hotmail.com");
         ApiInfo apiInfo = new ApiInfo(
                 "altimetrixDemo",
@@ -65,7 +49,7 @@ public class SwaggerConfig
                 .paths(PathSelectors.any()).build().useDefaultResponseMessages(false)
                 .globalResponseMessage(RequestMethod.GET, responseTypes)
                 .globalResponseMessage(RequestMethod.HEAD, responseTypes)
-                .globalOperationParameters(params).directModelSubstitute(Timestamp.class, java.util.Date.class)
+                .directModelSubstitute(Timestamp.class, java.util.Date.class)
                 .consumes(Sets.newHashSet("application/json")).produces(Sets.newHashSet("application/json"));
     }
 }

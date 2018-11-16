@@ -25,6 +25,15 @@ public class TripOptionDto {
     private LocalDate returnDate;
     private Integer days;
     private List<String> filter;
+    private Double price =0.0d;
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
 
 
     public List<String> getFilter() {
@@ -34,7 +43,7 @@ public class TripOptionDto {
     public void setFilter(List<String> filter) {
         this.filter = filter;
     }
-    
+
     public String getOrginationCity() {
         return orginationCity;
     }

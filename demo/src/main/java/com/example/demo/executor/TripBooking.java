@@ -11,18 +11,23 @@ import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
 @Component
 @EnableAutoConfiguration
 public class TripBooking {
-
-    private static AmandeusSandboxImpl amandeusSandbox;
-    public FlightFoundResultsDto  getMyFlightsNow(TripOptionDto  tripOptionDto) throws Exception {
-
-        FlightInformationDto flightInformationDto = amandeusSandbox.processFlightFindRequest(new FlightQueryDto(tripOptionDto.getOrginationCity(), tripOptionDto.getDestinationCity(), tripOptionDto.getStartDate(), tripOptionDto.getReturnDate(), 0.0d));
-        return null;
-
+    private static AmandeusSandboxImpl amandeusSandbox = new AmandeusSandboxImpl();
+    public Map<String, FlightInformationDto> getMyFlightsNow(TripOptionDto  tripOptionDto) throws Exception {
+        String baseUrl = "https://api.sandbox.amadeus.com/v1.2";
+        Map<String, FlightInformationDto> flightInformationDtoMap =
+                amandeusSandbox.processFlightFindRequest(
+                        new FlightQueryDto(tripOptionDto.getOrginationCity(),
+                            tripOptionDto.getDestinationCity(),
+                            tripOptionDto.getStartDate(),
+                            tripOptionDto.getReturnDate(),
+                            tripOptionDto.getPrice()));
+        return flightInformationDtoMap;
     }
 }

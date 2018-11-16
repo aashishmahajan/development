@@ -3,6 +3,7 @@ package com.example.demo.Model;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Getter
@@ -16,6 +17,7 @@ public class FlightQueryDto {
     private LocalDate departure_date;
     private LocalDate return_date;
     private Double price;
+    private List<String> filter;
 
     public FlightQueryDto(String origin, String destination, LocalDate departure_date, LocalDate return_date, Double price) {
         this.origin =origin;
@@ -29,27 +31,18 @@ public class FlightQueryDto {
         if(origin == null || ("").equals(origin)){
             return null;
         }
-        String url = searchTypeLowFare+"?apikey="+apikey+ "/"+"&origin="+origin;
-        if(destination !=null ){
-            url += "&destination="+destination;
-        }
-        if(departure_date !=null ){
-            url += "&departure_date="+departure_date;
-        }
-        if(return_date !=null ){
-            url += "&return_date="+return_date;
-        }
-        if(price > 0 ){
-            url += "&price="+price;
-        }
-        return url;
+        String url = searchTypeLowFare+"?apikey="+apikey+ "&origin="+origin;
+        return createString(url);
     }
     public String getSearchRegularFare() {
         if(origin == null || ("").equals(origin)){
             return null;
         }
         String url =  searchTypeRegularFare+"?apikey="+apikey+"&origin="+origin;
-        if(destination !=null ){
+        return createString(url);
+    }
+    private String createString(String url){
+        if(this.destination !=null ){
             url += "&destination="+destination;
         }
         if(departure_date !=null ){
