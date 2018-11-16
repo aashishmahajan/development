@@ -1,5 +1,5 @@
 package com.example.demo.Model;
-
+/* @Author: Aashish Mahajan, DateCreated: 11/15/2018 */
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;

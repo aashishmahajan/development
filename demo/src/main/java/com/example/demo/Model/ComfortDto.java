@@ -1,6 +1,5 @@
 package com.example.demo.Model;
-
-// multiple options on use to access
+/* @Author: Aashish Mahajan, DateCreated: 11/15/2018 */
 
 public enum ComfortDto {
     FASTEST,
