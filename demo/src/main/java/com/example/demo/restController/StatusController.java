@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Configuration
 @RestController
-@RequestMapping(value="/health-check")
+@RequestMapping(value="health-check")
 @Api(value="health check", description="validates if the controller is found")
 public class StatusController
 {

@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Setter
 public class FlightQueryDto {
     private static String apikey ="fl6grJkCesn0wqBnbWOUKRSeuh1jrMzk";
+    private static String searchTypeLowFare ="/flights/low-fare-search";
+    private static String searchTypeRegularFare ="/flights/inspiration-search";
     private String origin;
     private String destination;
     private LocalDate departure_date;
@@ -23,12 +25,30 @@ public class FlightQueryDto {
         this.price = price;
     }
 
-    @Override
-    public String toString() {
+    public String getSearchTypeLowFare() {
         if(origin == null || ("").equals(origin)){
             return null;
         }
-        String url = "apikey="+apikey+"&origin="+origin;
+        String url = searchTypeLowFare+"?apikey="+apikey+ "/"+"&origin="+origin;
+        if(destination !=null ){
+            url += "&destination="+destination;
+        }
+        if(departure_date !=null ){
+            url += "&departure_date="+departure_date;
+        }
+        if(return_date !=null ){
+            url += "&return_date="+return_date;
+        }
+        if(price > 0 ){
+            url += "&price="+price;
+        }
+        return url;
+    }
+    public String getSearchRegularFare() {
+        if(origin == null || ("").equals(origin)){
+            return null;
+        }
+        String url =  searchTypeRegularFare+"?apikey="+apikey+"&origin="+origin;
         if(destination !=null ){
             url += "&destination="+destination;
         }

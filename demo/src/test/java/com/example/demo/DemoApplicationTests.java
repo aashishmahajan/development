@@ -36,8 +36,8 @@ public class DemoApplicationTests {
 		LocalDate return_date = LocalDate.parse("2018-12-18");
 		Double price = 100.0d;
 		FlightQueryDto flightQueryDto = new FlightQueryDto(origin, destination, departure_date, return_date, price);;
-		System.out.println(flightQueryDto.toString());
-		assertTrue(flightQueryDto.toString().equals("apikey=fl6grJkCesn0wqBnbWOUKRSeuh1jrMzk&origin=NYC&destination=JFK&departure_date=2018-11-16&return_date=2018-12-18&price=100.0"));
+		assertTrue(flightQueryDto.getSearchRegularFare().equals("/flights/inspiration-search?apikey=fl6grJkCesn0wqBnbWOUKRSeuh1jrMzk&origin=NYC&destination=JFK&departure_date=2018-11-16&return_date=2018-12-18&price=100.0"));
+		assertTrue(flightQueryDto.getSearchTypeLowFare().equals("/flights/low-fare-search?apikey=fl6grJkCesn0wqBnbWOUKRSeuh1jrMzk/&origin=NYC&destination=JFK&departure_date=2018-11-16&return_date=2018-12-18&price=100.0"));
 	}
 
 

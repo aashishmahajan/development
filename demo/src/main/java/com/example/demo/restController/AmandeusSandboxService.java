@@ -1,12 +1,12 @@
 package com.example.demo.restController;
 /* @Author: Aashish Mahajan, DateCreated: 11/15/2018 */
 
-import com.example.demo.Model.FlightFoundResultsDto;
+import com.example.demo.Model.FlightInformationDto;
 import com.example.demo.Model.FlightQueryDto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-@RequestMapping(method = RequestMethod.GET)
+@RequestMapping(value="/amandeus",method = RequestMethod.POST)
 public interface AmandeusSandboxService {
-    FlightFoundResultsDto getFlightData(FlightQueryDto flightQueryDto);
+    FlightInformationDto getFlightData(FlightQueryDto flightQueryDto) throws Exception;
 }

@@ -14,5 +14,5 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Service
 public interface TripOptionService {
     @RequestMapping( path = "/getflights", method = RequestMethod.GET)
-    FlightFoundResultsDto getFlight(TripOptionDto tripOptionDto);
+    FlightFoundResultsDto getFlight(TripOptionDto tripOptionDto) throws Exception;
 }

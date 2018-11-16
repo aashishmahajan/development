@@ -44,6 +44,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
 		<!-- https://mvnrepository.com/artifact/io.swagger/swagger-annotations -->
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -51,12 +52,16 @@
 			<version>2.6.1</version>
 			<scope>compile</scope>
 		</dependency>
-
-        <!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
+		<!-- https://mvnrepository.com/artifact/io.springfox/springfox-swagger2 -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
             <version>2.6.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
         </dependency>
 
 	</dependencies>

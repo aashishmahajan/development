@@ -17,6 +17,8 @@ import java.io.IOException;
 @Api(value ="getFlight", description = "get basic flight info for now")
 public class TripOptionServiceImpl implements TripOptionService{
 
+    @Autowired
+    private TripBooking tripBooking;
 
     @RequestMapping(method = RequestMethod.GET, path="/health")
     public String getHealth(){
@@ -30,8 +32,9 @@ public class TripOptionServiceImpl implements TripOptionService{
     }
 
     @Override
-    public FlightFoundResultsDto getFlight(@RequestBody  TripOptionDto tripOptionDto) {
+    public FlightFoundResultsDto getFlight(@RequestBody  TripOptionDto tripOptionDto) throws Exception {
         if(tripOptionDto == null) return null;
-        return new FlightFoundResultsDto();
+        return tripBooking.getMyFlightsNow(tripOptionDto);
+
     }
 }
